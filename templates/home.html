@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Fire Weather Index Prediction</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 500px;
+            max-width: 100%;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            text-align: center;
+            background: #e8fff0;
+            border-left: 6px solid #28a745;
+            border-radius: 10px;
+            color: #155724;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 class="heading">
+            🔥 Forest Fire Weather Index Predictor
+        </h1>
+
+        <p class="subtitle">
+            Enter the environmental parameters below to predict the FWI value.
+        </p>
+
+        <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+            <div class="form-group">
+                <input type="text" name="Temperature" placeholder="🌡 Temperature (°C)" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="RH" placeholder="💧 Relative Humidity (%)" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="Ws" placeholder="💨 Wind Speed (km/h)" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="Rain" placeholder="🌧 Rain (mm)" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="FFMC" placeholder="FFMC" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="DMC" placeholder="DMC" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="ISI" placeholder="ISI" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="Classes" placeholder="Classes" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="Region" placeholder="Region" required>
+            </div>
+
+            <button type="submit">
+                Predict FWI
+            </button>
+
+        </form>
+
+        {% if results %}
+        <div class="result">
+            🔥 Predicted FWI: {{ results }}
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
